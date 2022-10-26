@@ -11,6 +11,8 @@ particlesJS.load('particles-js', 'particles.json', function() {
 
 /* Otherwise just put the config content (json): */
 
+let partColor = localStorage.getItem('partColor') || '#778792'
+
 particlesJS('particles',
   
   {
@@ -63,7 +65,7 @@ particlesJS('particles',
       "line_linked": {
         "enable": true,
         "distance": 150,
-        "color": "#778792",
+        "color": partColor,
         "opacity": 0.1,
         "width": 2
       },
@@ -131,3 +133,29 @@ particlesJS('particles',
   }
 
 );
+
+
+
+let rand123 = 0
+
+const hotKeys = (m) => {
+  let windowEvent = window.event ? event : m;
+  if (windowEvent.keyCode === 77 && windowEvent.ctrlKey && rand123 == 0) {
+    document.getElementById("particlesColor").style.display= "block"
+    rand123 = 2
+    return
+  }if (windowEvent.keyCode === 77 && windowEvent.ctrlKey && rand123 == 2) {
+    document.getElementById("particlesColor").style.display= "none"
+    rand123 = 0
+    return
+  }if (windowEvent.keyCode === 13) {
+    document.getElementById("particlesColorSubmit").click();
+    localStorage.setItem('partColor', document.getElementById("particlesColor").value);
+    window.location = window.location
+    return
+  }
+
+}
+
+document.onkeydown = hotKeys;
+
